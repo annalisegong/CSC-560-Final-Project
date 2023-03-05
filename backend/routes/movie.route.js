@@ -4,30 +4,6 @@ const movieRoute = express.Router();
 // Movie model
 let Movie = require('../models/Movie');
 
-/*post method
-movieRoute.post('/post', (req, res)=> {
-  res.send('Post API')
-})
-//Get all Method
-movieRoute.get('/getAll', (req, res) => {
-  res.send('Get All API')
-})
-
-//Get by ID Method
-movieRoute.get('/getOne/:id', (req, res) => {
-  res.send('Get by ID API')
-})
-
-//Update by ID Method
-movieRoute.patch('/update/:id', (req, res) => {
-  res.send('Update by ID API')
-})
-
-//Delete by ID Method
-movieRoute.delete('/delete/:id', (req, res) => {
-  res.send('Delete by ID API')
-})*/
-
 //Add Movie
 movieRoute.post('/create', async (req, res) => {
   const data = new Movie({
@@ -49,49 +25,52 @@ movieRoute.post('/create', async (req, res) => {
 //Get All Movies
 movieRoute.get("/", async (req, res) => {
   try{
-    Movie.find((data) => {
-      res.json(data)
-    });
+    const data = await Movie.find();
+    res.json(data)
   }
-  catch(err) {
-    console.log(err)
+  catch(error) {
+    res.status(500).json({message: error.message})
   }
 })
 // Get single movie
-movieRoute.route('/read/:id').get((req, res) => {
-  Movie.findById(req.params.id, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      res.json(data)
-    }
-  })
+movieRoute.get('/read/:id', async (req, res) => {
+  try{
+    const data = await Movie.findById(req.params.id);
+    res.json(data)
+  }
+  catch(error) {
+    res.status(500).json({message: error.message})
+  }
 })
 
 // Update movie
-movieRoute.route('/update/:id').put((req, res, next) => {
-  Movie.findByIdAndUpdate(req.params.id, {
-    $set: req.body
-  }, (error, data) => {
-    if (error) {
-      return next(error);
-      console.log(error)
-    } else {
-      res.json(data)
-      console.log('Data updated successfully')
-    }
-  })
+movieRoute.put('/update/:id', async (req, res, next) => {
+  try{
+    const id = req.params.id;
+    const updatedData = req.body;
+    const options = {new: true};
+
+    const result = await Movie.findByIdAndUpdate(
+      id, updatedData, options
+    )
+    console.log('Data updated successfully')
+    res.send(result)
+  }
+  catch(error) {
+    res.status(400).json({message: error.message})
+  }
 })
+
 // Delete movie
-movieRoute.route('/delete/:id').delete((req, res, next) => {
-  Movie.findOneAndRemove(req.params.id, (error, data) => {
-    if (error) {
-      return next(error);
-    } else {
-      res.status(200).json({
-        msg: data
-      })
-    }
-  })
+movieRoute.delete('/delete/:id', async (req, res, next) => {
+  try{
+    const id = req.params.id;
+    const data = await Movie.findByIdAndRemove(id)
+    res.status(200);
+    res.send(`Data with ${data.name} has been deleted..`)
+  }
+  catch(error) {
+    res.status(400).json({message: error.message})
+  }
 })
 module.exports = movieRoute;
