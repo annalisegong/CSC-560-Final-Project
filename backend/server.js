@@ -1,11 +1,8 @@
-require('dotenv').config();
-
 const express = require('express')
 const path = require('path')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-//const mongoString = process.env.DATABASE_URL
 
 // Connecting with mongo db
 mongoose
@@ -16,13 +13,7 @@ mongoose
   .catch((err) => {
     console.error('Error connecting to mongo', err.reason)
   })
-/*const database = mongoose.connection;
-database.on('error', (error) => {
-  console.log(error)
-})
-database.once('connect', () => {
-  console.log('Database Connected');
-})*/
+
 // Setting up port with express js
 const movieRoute = require('../backend/routes/movie.route')
 const app = express()
@@ -41,7 +32,7 @@ app.use('/api', movieRoute)
 
 // Create port
 const port = process.env.PORT || 4000
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log('Connected to port ' + port)
 })
 // Find 404 and hand over to error handler

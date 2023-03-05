@@ -12,7 +12,7 @@ import {
 })
 export class ApiService {
   baseUri: string = 'http://localhost:4000/api';
-  headers = new HttpHeaders().set('Content-Type', 'applications.json');
+  headers = new HttpHeaders().set('Content-Type', 'application/json');
   constructor(private http: HttpClient) {}
   // Create movie
   createMovie(data): Observable<any> {

@@ -23,7 +23,8 @@ export class MovieListComponent implements OnInit {
     if(window.confirm('Are you sure?')) {
       this.apiService.deleteMovie(movie._id).subscribe((data) => {
         this.Movie.splice(index, 1);
-      })
+        }
+      )
     }
   }
 }

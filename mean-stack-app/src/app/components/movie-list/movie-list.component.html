@@ -19,9 +19,9 @@
           <td>{{movie.description}}</td>
           <td>{{moive.status}}</td>
           <td class="text-center edit-block">
-            <span class="edit" [routerLink]="['/edit-movie/', moive._id]">
+            <span class="edit" [routerLink]="['/edit-movie/', movie._id]">
               <button type="button" class="btn btn-success btn-sm">Edit</button>
-            </span>
+            </span><span></span>
             <span class="delete" (click)="removeMovie(movie, i)">
               <button type="button" class="btn btn-danger btn-sm">Delete</button>
             </span>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from 'src/app/model/movie';
+import { Movie } from 'src/app/model/Movie';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/service/api.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';

@@ -10,11 +10,10 @@ movieRoute.post('/create', async (req, res) => {
     name: req.body.name,
     description: req.body.description, 
     status: req.body.status
-    /*Movie.create(req.body, (error, data) => {
-    res.json(data)*/
   })
   try{
     const dataToSave = await data.save();
+    console.log('Data added successfully')
     res.status(200).json(dataToSave)
   }
   catch(error) {
@@ -23,7 +22,7 @@ movieRoute.post('/create', async (req, res) => {
 })
 
 //Get All Movies
-movieRoute.get("/", async (req, res) => {
+movieRoute.get('/', async (req, res) => {
   try{
     const data = await Movie.find();
     res.json(data)
@@ -44,7 +43,7 @@ movieRoute.get('/read/:id', async (req, res) => {
 })
 
 // Update movie
-movieRoute.put('/update/:id', async (req, res, next) => {
+movieRoute.patch('/update/:id', async (req, res) => {
   try{
     const id = req.params.id;
     const updatedData = req.body;
@@ -62,7 +61,7 @@ movieRoute.put('/update/:id', async (req, res, next) => {
 })
 
 // Delete movie
-movieRoute.delete('/delete/:id', async (req, res, next) => {
+movieRoute.delete('/delete/:id', async (req, res) => {
   try{
     const id = req.params.id;
     const data = await Movie.findByIdAndRemove(id)

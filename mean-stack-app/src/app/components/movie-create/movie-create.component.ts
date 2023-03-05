@@ -28,7 +28,7 @@ export class MovieCreateComponent implements OnInit {
       status: ['', [Validators.required]]
     });
   }
-  // Choose designation with select dropdown
+  // Choose status with select dropdown
   updateProfile(e) {
     this.movieForm.get('designation').setValue(e, {
       onlySelf: true,
@@ -46,7 +46,7 @@ export class MovieCreateComponent implements OnInit {
       return this.apiService.createMovie(this.movieForm.value).subscribe({
         complete: () => {
           console.log('Employee successfully created!'),
-            this.ngZone.run(() => this.router.navigateByUrl('/employees-list'));
+            this.ngZone.run(() => this.router.navigateByUrl('/movies-list'));
         },
         error: (e) => {
           console.log(e);
