@@ -17,8 +17,6 @@ mongoose
 // Setting up port with express js
 const movieRoute = require('../backend/routes/movie.route')
 const app = express()
-app.use(express.json());
-
 app.use(bodyParser.json())
 app.use(
   bodyParser.urlencoded({

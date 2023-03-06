@@ -1,4 +1,5 @@
 const express = require('express');
+const app = express();
 const movieRoute = express.Router();
 
 // Movie model
@@ -43,7 +44,7 @@ movieRoute.get('/read/:id', async (req, res) => {
 })
 
 // Update movie
-movieRoute.patch('/update/:id', async (req, res) => {
+movieRoute.put('/update/:id', async (req, res) => {
   try{
     const id = req.params.id;
     const updatedData = req.body;
